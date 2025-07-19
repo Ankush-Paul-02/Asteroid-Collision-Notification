@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: asteroid-alert
+
+  # KAFKA
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    template:
+      default-topic: asteroid-alert
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+nasa:
+  api-key: ${NASA_API_KEY}
+  url: https://api.nasa.gov/
+
