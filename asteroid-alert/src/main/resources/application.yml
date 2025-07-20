@@ -1,4 +1,6 @@
 spring:
+  main:
+    banner-mode: OFF
   application:
     name: asteroid-alert
 
@@ -11,6 +13,8 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
 
 nasa:
   api-key: ${NASA_API_KEY}

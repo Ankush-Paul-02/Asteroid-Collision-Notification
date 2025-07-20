@@ -1,0 +1,54 @@
+server:
+  port: 8079
+spring:
+  main:
+    banner-mode: OFF
+  application:
+    name: notification-service
+
+  # KAFKA
+  kafka:
+    consumer:
+      group-id: asteroid-alert
+      bootstrap-servers: localhost:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      properties:
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+        spring.json.trusted.packages: "*"
+        spring.json.value.default.type: com.devmare.notification_service.event.AsteroidCollisionEvent
+
+
+  # PostgreSQL database configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: POSTGRESQL
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # MailTrap
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: ${MAIL_TRAP_USER_NAME}
+    password: ${MAIL_TRAP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+email:
+  service:
+    from:
+      email: ankushpaul198@gmail.com
+
+
